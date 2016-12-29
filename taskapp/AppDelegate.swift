@@ -5,23 +5,21 @@
 //  Created by 海野恵凜那 on 2016/12/28.
 //  Copyright © 2016年 erina.umino. All rights reserved.
 //
-
+        
 import UIKit
 import UserNotifications
-
+    
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-
-    var window: UIWindow?
-
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
-        //ユーザーに通知の許可を求める
+    var window: UIWindow?
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+        // ユーザに通知の許可を求める
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-            //Enable or disable features based on authorization
+            // Enable or disable features based on authorization
         }
         
         center.delegate = self;
@@ -55,6 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
 }
+
 
