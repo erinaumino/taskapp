@@ -30,18 +30,18 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m93-HT-wsF" id="5C6-yt-zDs">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="85b-33-BJE">
-                                                    <rect key="frame" x="15" y="4" width="34" height="21"/>
+                                                    <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tZ8-Dh-z0Q">
-                                                    <rect key="frame" x="15" y="25" width="44" height="15"/>
+                                                    <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
@@ -126,6 +126,18 @@
                                     <!--2016-12-28 12:34:21 +0000-->
                                 </date>
                             </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="カテゴリー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGn-xM-Wmc">
+                                <rect key="frame" x="16" y="436" width="87" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="idO-9v-R2r">
+                                <rect key="frame" x="16" y="467" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -137,14 +149,20 @@
                             <constraint firstItem="MRs-Fi-o4y" firstAttribute="leading" secondItem="1b7-kH-Sfc" secondAttribute="leadingMargin" id="K5f-hM-EKJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CJy-aa-tmv" secondAttribute="trailing" id="MlX-Um-JSK"/>
                             <constraint firstItem="MRs-Fi-o4y" firstAttribute="top" secondItem="BNy-xS-gOP" secondAttribute="bottom" constant="10" id="OPa-X7-rEo"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="idO-9v-R2r" secondAttribute="trailing" id="PFW-GD-mLW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CIB-WM-5nf" secondAttribute="trailing" id="QP2-Je-62u"/>
+                            <constraint firstItem="idO-9v-R2r" firstAttribute="leading" secondItem="1b7-kH-Sfc" secondAttribute="leadingMargin" id="T9e-Fo-Zla"/>
                             <constraint firstItem="CJy-aa-tmv" firstAttribute="leading" secondItem="1b7-kH-Sfc" secondAttribute="leadingMargin" id="WLg-km-YUC"/>
+                            <constraint firstItem="idO-9v-R2r" firstAttribute="top" secondItem="oGn-xM-Wmc" secondAttribute="bottom" constant="10" id="YFR-uS-5gk"/>
+                            <constraint firstItem="oGn-xM-Wmc" firstAttribute="top" secondItem="CJy-aa-tmv" secondAttribute="bottom" constant="10" id="YgM-Wk-wKc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="62a-X1-GjR" secondAttribute="trailing" id="aQZ-gG-4BM"/>
+                            <constraint firstItem="oGn-xM-Wmc" firstAttribute="leading" secondItem="1b7-kH-Sfc" secondAttribute="leadingMargin" id="axi-HS-Vs4"/>
                             <constraint firstItem="CIB-WM-5nf" firstAttribute="leading" secondItem="1b7-kH-Sfc" secondAttribute="leadingMargin" id="jxH-Oy-4y6"/>
                             <constraint firstItem="CJy-aa-tmv" firstAttribute="top" secondItem="62a-X1-GjR" secondAttribute="bottom" constant="10" id="shB-G5-UUt"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="categoryTextField" destination="idO-9v-R2r" id="ULO-tw-SVu"/>
                         <outlet property="contentsTextView" destination="62a-X1-GjR" id="BVW-0h-9LK"/>
                         <outlet property="datePicker" destination="CJy-aa-tmv" id="Yjo-9F-IWI"/>
                         <outlet property="titleTextField" destination="CIB-WM-5nf" id="TFV-qo-v7d"/>
