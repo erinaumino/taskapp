@@ -10,9 +10,13 @@ import UIKit
 import RealmSwift
 import UserNotifications 
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchResultsUpdating {
     
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    var searchController = UISearchController()
+    
     
     // Realmインスタンスを取得する
     let realm = try! Realm() 
@@ -21,11 +25,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // 日付近い順\順でソート：降順
     // 以降内容をアップデートするとリスト内は自動的に更新される。
     let taskArray = try! Realm().objects(Task.self).sorted(byProperty: "date", ascending: false)
+    var searchResults = try! Realm().objects(Task.self)
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        tableView.tableHeaderView = searchController.searchBar
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -39,25 +51,55 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // MARK: UITableViewDataSourceプロトコルのメソッド
     // データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return taskArray.count
+        if searchController.isActive {
+            return searchResults.count
+        } else {
+            return taskArray.count
+        }
     }
     
     // 各セルの内容を返すメソッド
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 再利用可能な cell を得る
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath)
         
         // Cellに値を設定する.
-        let task = taskArray[indexPath.row]
-        cell.textLabel?.text = task.title
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        
-        let dateString:String = formatter.string(from: task.date as Date)
-        cell.detailTextLabel?.text = dateString
+        if searchController.isActive {
+            cell.textLabel!.text = "\(searchResults[indexPath.row])"
+            let task = searchResults[indexPath.row]
+            cell.textLabel?.text = task.title
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            
+            let dateString:String = formatter.string(from: task.date as Date)
+            cell.detailTextLabel?.text = dateString
+            
+
+        } else {
+            cell.textLabel!.text = "\(taskArray[indexPath.row])"
+            let task = taskArray[indexPath.row]
+            cell.textLabel?.text = task.title
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            
+            let dateString:String = formatter.string(from: task.date as Date)
+            cell.detailTextLabel?.text = dateString
+        }
         
         return cell
+        
+    }
+    
+    //検索文字列変更時の呼び出しメソッド
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        //検索文字列を含むデータを検索結果配列に格納する。
+        self.searchResults = realm.objects(Task.self).filter("category ='\(searchController.searchBar.text!)'")
+        
+        //テーブルビューを再読み込みする。
+        self.tableView.reloadData()
     }
     
     // MARK: UITableViewDelegateプロトコルのメソッド
@@ -122,6 +164,4 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.reloadData()
     }
 
-    
 }
-
